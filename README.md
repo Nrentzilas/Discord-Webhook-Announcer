@@ -37,8 +37,8 @@ pip install -r requirements.txt
 
 1. **Clone the repository**:
    ```bash
-   git clone <repository_url>
-   cd <repository_name>
+   git clone https://github.com/Nrentzilas/Discord-Webhook-Announcer.git
+   cd Discord-Webhook-Announcer
    ```
 
 2. **Create a Virtual Environment** (recommended):
@@ -55,18 +55,25 @@ pip install -r requirements.txt
 4. **Setup `.env` File**:
    Create a `.env` file in the root directory and configure the following variables:
    ```env
-   # General Configuration
-   UI_TITLE=YourIPTVDealer Movie BOT
-   WEBHOOK_URL=https://discord.com/api/webhooks/<your_webhook>
+   # ------------ EXAMPLE USAGE LIKE PHOTO 1 ---------------
 
-   # Embed Configuration
-   AUTHOR_IMAGE_URL=https://i.ibb.co/JjY6SNh/cropped-favicon-2.png
+   # UI Configuration
+   UI_TITLE=Discord Webhook Announcer
+
+   # Embed Configuration 
+   WEBHOOK_URL=https://discord.com/api/webhooks/BLAH BLAH BLAH BLAH 
+   AUTHOR_IMAGE_URL= IMAGE HOSTED ONLINE ( CHECK IMG BB )
+
+   # Ui & Embed Configuration    
+
+   #  ---  Note that by changing these values, you change them both on UI & on the embed ---
+   #  ---          I made it this way so it is easier for long-term usage                ---
+
    TITLE1=New Movie Added
-
-   # Field Titles
-   FIELD1_TITLE=Name
+   FIELD1_TITLE=Movie Name
    INLINE1_TITLE=Country
    INLINE2_TITLE=Subs
+   # --- The Field3 is the field with the link | Maybe a link on a website or anything you like ---
    FIELD3_TITLE=Website
    FIELD4_TITLE=Additional Movies
    ```
@@ -124,5 +131,4 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 
 ## Support
 
-For any issues, feel free to open an issue on the [GitHub repository](<repository_url>) or contact me directly at Discord: sparkmate
-
+For any issues, feel free to open an issue on the [GitHub repository](https://github.com/Nrentzilas/Discord-Webhook-Announcer.git) or contact me directly at Discord: sparkmate
