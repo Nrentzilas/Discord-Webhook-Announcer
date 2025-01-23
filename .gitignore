@@ -3,3 +3,7 @@
 /dist/
 
 *.spec
+.env
+.gitignore
+
+personal_env.txt

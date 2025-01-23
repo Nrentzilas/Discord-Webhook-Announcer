@@ -1,79 +1,77 @@
 from PyQt6 import QtWidgets, QtGui, QtCore
 import sys
 import requests
+from dotenv import load_dotenv
+import os
+
+# Check the .env file to configure it the way you want. I have set an example usage, but you can customize it completely
+load_dotenv()
 
 class MovieBotApp(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("Discord Movie Bot")
+        self.setWindowTitle(os.getenv("UI_TITLE"))
         self.setGeometry(100, 100, 600, 500)
-
-        # Set main window background color
         self.setStyleSheet("background-color: #070e12;")
-
         layout = QtWidgets.QVBoxLayout()
 
-        # Add Title
-        title_label = QtWidgets.QLabel("YourIPTVDealer Movie BOT")
-        title_label.setStyleSheet("color: white; font-size: 16px; font-weight: bold; margin-bottom: 20px;")
-        title_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        layout.addWidget(title_label)
+        # Title
+        self.title_label = QtWidgets.QLabel(os.getenv("UI_TITLE"))
+        self.title_label.setStyleSheet("color: white; font-size: 16px; font-weight: bold; margin-bottom: 20px;")
+        self.title_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(self.title_label)
 
-        # Add dropdown to switch between Movie and Series
-        type_layout = QtWidgets.QHBoxLayout()
-        type_label = QtWidgets.QLabel("Select Type:")
-        type_label.setStyleSheet("color: white;")
-        self.type_selector = QtWidgets.QComboBox()
-        self.type_selector.addItems(["Movie", "Series"])
-        self.type_selector.setStyleSheet("background-color: #0c1a20; color: white; border-radius: 5px; padding: 5px;")
-        type_layout.addWidget(type_label)
-        type_layout.addWidget(self.type_selector)
-        layout.addLayout(type_layout)
-
-        # Add padding around the fields
+        
         form_layout = QtWidgets.QFormLayout()
         form_layout.setHorizontalSpacing(20)
         form_layout.setVerticalSpacing(15)
 
-        # Styled Movie Name input
-        movie_name_label = QtWidgets.QLabel("Name:")
-        movie_name_label.setStyleSheet("color: white;")
-        self.movie_name = QtWidgets.QLineEdit()
-        self.movie_name.setStyleSheet("background-color: #0c1a20; color: white; border: 1px solid #1e2a30; padding: 5px; border-radius: 5px;")
-        form_layout.addRow(movie_name_label, self.movie_name)
+        #  FIELD1 
+        self.field1_label = QtWidgets.QLabel(os.getenv("FIELD1_TITLE"))
+        self.field1_label.setStyleSheet("color: white;")
+        self.field1_input = QtWidgets.QLineEdit()
+        self.field1_input.setStyleSheet("background-color: #0c1a20; color: white; border: 1px solid #1e2a30; padding: 5px; border-radius: 5px;")
+        form_layout.addRow(self.field1_label, self.field1_input)
 
-        # Styled Country input
-        country_label = QtWidgets.QLabel("Country (Shortcode):")
-        country_label.setStyleSheet("color: white;")
-        self.country_code = QtWidgets.QLineEdit()
-        self.country_code.setStyleSheet("background-color: #0c1a20; color: white; border: 1px solid #1e2a30; padding: 5px; border-radius: 5px;")
-        form_layout.addRow(country_label, self.country_code)
+        #  INLINE1 
+        self.inline1_label = QtWidgets.QLabel(os.getenv("INLINE1_TITLE"))
+        self.inline1_label.setStyleSheet("color: white;")
+        self.inline1_input = QtWidgets.QLineEdit()
+        self.inline1_input.setStyleSheet("background-color: #0c1a20; color: white; border: 1px solid #1e2a30; padding: 5px; border-radius: 5px;")
+        form_layout.addRow(self.inline1_label, self.inline1_input)
 
-        # Styled Subs input
-        subs_label = QtWidgets.QLabel("Subs:")
-        subs_label.setStyleSheet("color: white;")
-        self.subs = QtWidgets.QLineEdit()
-        self.subs.setStyleSheet("background-color: #0c1a20; color: white; border: 1px solid #1e2a30; padding: 5px; border-radius: 5px;")
-        form_layout.addRow(subs_label, self.subs)
+        #  INLINE2 
+        self.inline2_label = QtWidgets.QLabel(os.getenv("INLINE2_TITLE"))
+        self.inline2_label.setStyleSheet("color: white;")
+        self.inline2_input = QtWidgets.QLineEdit()
+        self.inline2_input.setStyleSheet("background-color: #0c1a20; color: white; border: 1px solid #1e2a30; padding: 5px; border-radius: 5px;")
+        form_layout.addRow(self.inline2_label, self.inline2_input)
 
-        # Additional Movies/Series
-        additional_label = QtWidgets.QLabel("Additional Movies/Series Added:")
-        additional_label.setStyleSheet("color: white;")
-        self.additional_area = QtWidgets.QTextEdit()
-        self.additional_area.setStyleSheet("background-color: #0c1a20; color: white; border: 1px solid #1e2a30; padding: 5px; border-radius: 5px;")
-        form_layout.addRow(additional_label, self.additional_area)
+        #  FIELD4 
+        self.field4_label = QtWidgets.QLabel(os.getenv("FIELD4_TITLE"))
+        self.field4_label.setStyleSheet("color: white;")
+        self.field4_input = QtWidgets.QTextEdit()
+        self.field4_input.setStyleSheet("background-color: #0c1a20; color: white; border: 1px solid #1e2a30; padding: 5px; border-radius: 5px;")
+        form_layout.addRow(self.field4_label, self.field4_input)
 
-        # Styled Main Image URL
-        main_image_label = QtWidgets.QLabel("Main Image URL (bottom):")
-        main_image_label.setStyleSheet("color: white;")
-        self.main_image_url = QtWidgets.QLineEdit()
-        self.main_image_url.setStyleSheet("background-color: #0c1a20; color: white; border: 1px solid #1e2a30; padding: 5px; border-radius: 5px;")
-        form_layout.addRow(main_image_label, self.main_image_url)
+        #  FIELD3 
+        self.field3_label = QtWidgets.QLabel(os.getenv("FIELD3_TITLE"))
+        self.field3_label.setStyleSheet("color: white;")
+        self.field3_input = QtWidgets.QLineEdit()
+        self.field3_input.setStyleSheet("background-color: #0c1a20; color: white; border: 1px solid #1e2a30; padding: 5px; border-radius: 5px;")
+        form_layout.addRow(self.field3_label, self.field3_input)
+
+        # IMG 
+        self.main_image_label = QtWidgets.QLabel("Main Image URL")
+        self.main_image_label.setStyleSheet("color: white;")
+        self.main_image_input = QtWidgets.QLineEdit()
+        self.main_image_input.setStyleSheet("background-color: #0c1a20; color: white; border: 1px solid #1e2a30; padding: 5px; border-radius: 5px;")
+        form_layout.addRow(self.main_image_label, self.main_image_input)
 
         layout.addLayout(form_layout)
 
-        # Styled Submit button
+        
         self.submit_button = QtWidgets.QPushButton("Send to Discord")
         self.submit_button.setStyleSheet(
             "background-color: #1e2a30; color: white; border: 1px solid #1e2a30; padding: 10px; margin-top: 20px; border-radius: 5px; cursor: pointer;"
@@ -84,21 +82,18 @@ class MovieBotApp(QtWidgets.QWidget):
         self.setLayout(layout)
 
     def send_to_discord(self):
-        # Hardcoded values for removed fields
-        webhook_url = "https://discord.com/api/webhooks/1331748717895876660/CX3fiGM_paaS22F4dYgE2ei1vYwLXsSzPpQrCWAAIfx8VWksMGUQDZdmDpNetR6OQXtd"
-        author_image_url = "https://i.ibb.co/JjY6SNh/cropped-favicon-2.png"
+        webhook_url = os.getenv("WEBHOOK_URL")
 
-        type_selected = self.type_selector.currentText()
-        title = f"New {type_selected} Added!"
+        title = os.getenv("TITLE1")
 
-        additional_content = self.additional_area.toPlainText().strip()
-        additional_field = {"name": f"Additional {type_selected}(s)", "value": additional_content, "inline": False} if additional_content else None
+        additional_content = self.field4_input.toPlainText().strip()
+        additional_field = {"name": os.getenv("FIELD4_TITLE"), "value": additional_content, "inline": False} if additional_content else None
 
         fields = [
-            {"name": "Name", "value": self.movie_name.text(), "inline": False},
-            {"name": "Country", "value": self.country_code.text(), "inline": True},
-            {"name": "Subs", "value": self.subs.text(), "inline": True},
-            {"name": "Website", "value": "https://youriptvdealer.com", "inline": False}
+            {"name": os.getenv("FIELD1_TITLE"), "value": self.field1_input.text(), "inline": False},
+            {"name": os.getenv("INLINE1_TITLE"), "value": self.inline1_input.text(), "inline": True},
+            {"name": os.getenv("INLINE2_TITLE"), "value": self.inline2_input.text(), "inline": True},
+            {"name": os.getenv("FIELD3_TITLE"), "value": self.field3_input.text(), "inline": False}
         ]
 
         if additional_field:
@@ -108,16 +103,17 @@ class MovieBotApp(QtWidgets.QWidget):
             "embeds": [
                 {
                     "title": title,
+                    "color": 0x10d0e6,
                     "fields": fields,
-                    "thumbnail": {"url": author_image_url},
-                    "image": {"url": self.main_image_url.text()}
+                    "thumbnail": {"url": os.getenv("AUTHOR_IMAGE_URL")},
+                    "image": {"url": self.main_image_input.text()}
                 }
             ]
         }
 
         response = requests.post(webhook_url, json=data)
         if response.status_code == 204:
-            QtWidgets.QMessageBox.information(self, "Success", f"{type_selected} announcement sent successfully!")
+            QtWidgets.QMessageBox.information(self, "Success", "Announcement sent successfully!")
         else:
             QtWidgets.QMessageBox.critical(self, "Error", f"Failed to send announcement. Status Code: {response.status_code}")
 
